@@ -9,6 +9,23 @@
 <body>
     
     <h1>BUDGET Prog.</h1>
+    <h2>Welcome to my budget program</h2>
+    To start, please select an addition you would like to make
+    <form>
+        <input type="radio" id="Fixed" name="Update Type" value="New Fixed Bill">
+        <label for="New Fixed Bill">New Fixed Bill</label><br>
+        <input type="radio" id="Expense" name="Update Type" value="New Expense">
+        <label for="New Expense">New Expense</label><br>
+        <input type="radio" id="Misc" name="Update Type" value="Update your new Purchase">
+        <label for="Update your new Purchase">Update your new Purchase</label>
+        <br><br><label for="Category">Label for entry</label>
+        <input type="text" name="" id="Category">
+        <label for="entryAmount">Amount($)</label>
+        <input type="number" id ="entryAmount">
+        <br><br> <p>leave below blank unless you would like to manually select a date</p>
+        <input type="date" id = "entryDate">
+    </form>
+      <br><br>
     <table id = "Bill_Table">
        <caption id = "Bill_Title">Fixed Bills</caption> 
         <th class = "Bill_Header">Date</th>
