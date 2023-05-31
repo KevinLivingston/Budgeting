@@ -20,17 +20,69 @@ function createEntry() {
 
 }
 function findCategory() {
-    var catList = document.getElementsByName("Update");
-    for (var i = 0; i < catList.length; i++) {
-       if (catList[i].checked == true){
-        console.log(catList[i].id);
-       }
-    }
+
+   return selected;       
 }
 function storeName(){
-    console.log(document.getElementById('Category').value);
+    
+    return holdCategory;
 }
-document.getElementById("submitBut").addEventListener('onclick',storeName, false);
+
+function storeNumber(){
+   
+    return holdNumber;
+}
+function updateTable(){
+    var catList = document.getElementsByName("Update");
+    var selected;
+    var i =0;
+    var flag = false;
+   while( flag == false){
+    if (catList[i].checked == true){
+        selected = catList[i].value;
+        flag = true;
+    }
+    i++;
+   }
+   console.log(selected);
+   var userCategory = document.getElementById('Category');
+   var holdCategory = userCategory.value;
+   console.log(holdCategory);
+   var userNumber = document.getElementById('entryAmount');
+   var holdNumber = userNumber.value;
+   console.log(holdNumber);
+   var newEl = document.createElement('tr');
+
+   var name= document.createElement('td');
+   var nameText = document.createTextNode(holdCategory);
+   var number= document.createElement('td');
+   var numberText = document.createTextNode(holdNumber);
+
+   name.appendChild(nameText);
+   number.appendChild(numberText);
+   newEl.appendChild(name);
+   newEl.appendChild(number);
+   console.log(20);
+   switch (selected){
+    case "New Fixed Bill":
+        name.className = 'Bill_Header';
+        number.className = 'Bill_Header';
+        document.getElementById("Bill_Table").appendChild(newEl);
+        break;
+    case "New Expense":
+        name.className = 'Expense_Header';
+        number.className = 'Expense_Header';
+        document.getElementById("Expense_Table").appendChild(newEl);
+        break;
+    case "Update your new Purchase":
+        name.className = 'Misc_Header';
+        number.className = 'Misc_Header';
+        document.getElementById("Misc_Table").appendChild(newEl);
+        break;
+    default:
+        console.log("No expense selected");
+   }
+}
 
 
 
