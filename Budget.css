@@ -1,41 +1,57 @@
-body{
-    background-color:darkorange;
+body {
+    background-color: darkorange;
 }
 
 
-.Bill_Header,#Bill_Title, #Date, #Bill_Type, #Bill_Amount
-{
-    border-style:solid;
+.Bill_Header,
+#Bill_Title,
+.Bill_Id,
+.Bill_Amount,
+.Bill_Date {
+    border-style: solid;
     padding: 10PX;
     border-color: red;
     border-collapse: collapse;
 }
-.Expense_Header, #Expense_Type, #Expense_Initial, #Expense_Title{
 
-    border-style:dashed;
+.Expense_Header,
+.Expense_Id,
+.Expense_Amount,
+#Expense_Title,
+.Expense_Date {
+
+    border-style: dashed;
     padding: 10PX;
     border-color: blue;
     border-collapse: collapse;
 
 }
-.Misc_Header, #Misc_Type, #Misc_Remain, #Misc_Title{
 
-    border-style:ridge;
+.Misc_Header,
+.Misc_Id,
+.Misc_Amount,
+#Misc_Title,
+.Misc_Date {
+
+    border-style: ridge;
     padding: 10PX;
     border-color: green;
     border-collapse: collapse;
 
 }
+
 table {
-    padding:10px,20px,30px,40px;
-    width:100px;
-    float:left;
-    
+    padding: 10px, 20px, 30px, 40px;
+    width: 100px;
+    float: left;
+
 }
-caption{
+
+caption {
     align-content: center;
 }
-#submitBut{
+
+#submitBut {
     width: 20px;
     height: 20px;
 }
