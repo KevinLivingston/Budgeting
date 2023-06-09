@@ -20,6 +20,33 @@ function storeNumber(){
     return holdNumber;
 }
 */
+window.addEventListener('load', newBudget());
+reCalc = document.getElementById('Total_Remain');
+reCalc.addEventListener('click', function () {
+    var value;
+    var fixNum = document.getElementById('Bill_Total').innerText;
+    var expNum = document.getElementById('Expense_Total').innerText;
+    var miscNum = document.getElementById('Misc_Total').innerText;
+    value = parseFloat(fixNum) + parseFloat(expNum) + parseFloat(miscNum);
+    document.getElementById('CurrentAmount').innerText = parseFloat(document.getElementById('InitAmount').innerText) -value;
+}
+    , false);
+var starter;
+
+function newBudget() {
+    var starting_Amount = +prompt('Welcome to my budget program.Getting more practice with web design while also creating something that can help.The way this budget works is we will start with a amount to base the budget off of, usually this is the amount of money in your checking account. It could be rounded down in order to givw you comfort from budget to budget for savings or soemthing. Then you will begin to enter your spending as you move through the month. You will select from Fixed Bill, basically month bills that have due dates. The expenses options is for necessary expesnses but not bills necessarily such as gas, savings,groceries. lastly there is a misc category which best fits what is not needed. you must also enter a identifier for the bills/expenses, and also a value for the amount, in order for it to be entered in any tables, the current amount is the amount you are left with in checking.S Please enter the total amount in your account', ' 1' + '-99,999');
+    var storage = document.getElementById('InitAmount');
+    if (isNaN(starting_Amount)) {2
+        console.log("This aint a number");
+        newBudget();
+    }
+    else {
+        starting_Amount = starting_Amount.toFixed(2);
+        storage.innerText +=  starting_Amount;
+    }
+
+}
+
 function updateTable() {// function used to retrive all the values entered by the user when the submit button is clicked
     var catList = document.getElementsByName("Update");//store the list of type of expenses
     var selected;//initialize variable to store which type of expense is selected
@@ -42,7 +69,7 @@ function updateTable() {// function used to retrive all the values entered by th
     var userNumber = document.getElementById('entryAmount');//retrive the element which holds the input for amount
     var holdNumber = userNumber.value;//access the literal value that was type in by the user
     var newEl = document.createElement('tr');//creating a new table row element to prepare for inserting new data into table
-    var formatDate = ""+ month +"/" + day;
+    var formatDate = "" + month + "/" + day;
     var name = document.createElement('td');//creating a new table data element for the expense identifier
     var nameText = document.createTextNode(holdCategory);//create a text note to attach to the name element
     var number = document.createElement('td');//create a new table data element for the expense amount
@@ -79,16 +106,16 @@ function updateTable() {// function used to retrive all the values entered by th
             number.className = 'Misc_Amount';
             document.getElementById("Misc_Table").appendChild(newEl);
             var el = document.getElementById('Misc_Total');
-            el.innerText  = updateTotal(3);
+            el.innerText = updateTotal(3);
             break;
         default://no case matched so do nothing and return a response
             console.log("No expense selected");
     }
 }
-function updateTotal(n){
+function updateTotal(n) {
     var values;
     var runningTotal = 0;
-    switch (n){
+    switch (n) {
         case 1:
             values = document.getElementsByClassName('Bill_Amount');
             break;
@@ -97,17 +124,16 @@ function updateTotal(n){
             break;
         case 3:
             values = document.getElementsByClassName('Misc_Amount');
-            break;    
+            break;
         default:
             console.log("No addition type selected");
     }
-    for (var i = 0 ; i < values.length ; i++){
+    for (var i = 0; i < values.length; i++) {
         runningTotal += Number(values[i].innerText);
     }
     console.log(runningTotal);
     return runningTotal;
 }
-
 
 
 
