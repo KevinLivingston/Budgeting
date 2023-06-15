@@ -11,32 +11,40 @@
 <body>
 
     <h1>BUDGET Prog.</h1>
-    <h2>Welcome to my budget program</h2>
-    To start, please select an addition you would like to make
-    <form>
+   
+    <br>
+    <form >
+        <div id = "multiple_Choice"> 
+        <h3>    To start, please select an addition you would like to make
+        </h3>
         <input type="radio" id="Fixed" name="Update" value="New Fixed Bill">
         <label for="Fixed">New Fixed Bill</label><br>
         <input type="radio" id="Expense" name="Update" value="New Expense">
         <label for="Expense">New Expense</label><br>
         <input type="radio" id="Misc" name="Update" value="Update your new Purchase">
         <label for="Misc">Update your new Purchase</label>
-        <br><br><label for="Category">Label for entry</label>
+    </div>
+    
+    <div id = "input">
+        <label for="Category">Please type an identifier for this expense</label><br>
         <input type="text" name="" id="Category">
-        <label for="entryAmount">Amount($)</label>
+        <br>
+        <label for="entryAmount">Amount($)</label><br>
         <input type="number" id="entryAmount">
         <br><br>
         <p>leave below blank unless you wo2uld like to manually select a date</p>
         <input type="date" id="entryDate">
         <br>
         <button type="button" id="submitBut" onclick=updateTable()> Submit</button>
+        <br>
+    </div>
+    <div id = "trackAmount">
+        <b id = initLabel> Starting Amount: $</b><b id='InitAmount'>0</b><br>
+        <b id='CurrentLabel'> Current Amount:$ <b id='CurrentAmount'>0</b></b>
+    </div>
     </form>
     <br><br>
-    <div>
-        <h3>Bank account projection</h3>
-        <b> Starting Amount:$</b><b id='InitAmount'></b>
-        <br>
-        <b> Current Amount:$</b><b id='CurrentAmount'></b>
-    </div>
+  
     <table id="Bill_Table">
         <caption id="Bill_Title">Fixed Bills:$<b id="Bill_Total">0</b></caption>
         <th class="Bill_Header">Due Date</th>

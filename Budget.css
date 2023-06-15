@@ -40,10 +40,14 @@ body {
 
 }
 
+h1{
+text-align: center;
+}
+
 table {
     padding: 10px, 20px, 30px, 40px;
-    width: 100px;
-    float: left;
+    width: 33%;
+    float:left;
 
 }
 
@@ -52,6 +56,30 @@ caption {
 }
 
 #submitBut {
-    width: 20px;
+    width: 80px;
     height: 20px;
+    text-align: center;
+}
+#input{
+    background-color: green;
+    
+}
+#trackAmount{
+    background-color: red;
+}
+#multiple_Choice{
+    background-color: blue;/* cool to use background color on div elements to see their full size for testing purposes.*/
+   
+}
+#multiple_Choice, #input, #trackAmount{
+width:33%;
+height: 300px;
+float: left;
+text-align:center;
+}
+#InitAmount{
+
+}
+#CurrentAmount{
+
 }
