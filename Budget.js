@@ -30,7 +30,16 @@ reCalc.addEventListener('click', function () {
     value = parseFloat(fixNum) + parseFloat(expNum) + parseFloat(miscNum);
     console.log(value);
     document.getElementById('CurrentAmount').innerText = parseFloat(document.getElementById('InitAmount').innerText) -value;
+    try{
+    if(parseFloat(document.getElementById('CurrentAmount').innerText) < 0){
+        throw new Error("Budget exceeded!!")
+    }
 }
+    catch(e){
+        alert(e);
+    }
+}
+
     , false);
 var starter;
 
@@ -58,16 +67,42 @@ function updateTable() {// function used to retrive all the values entered by th
     console.log(month);
     var day = entryTime.getDay();
     while (flag == false) {//initialize while loop
+        try{
         if (catList[i].checked == true) {//check to see if the certain expense type is "checked" selected by the user
             selected = catList[i].value;//store the name of the type of expense
             flag = true;//update flag to break from loop
         }
+    }
+    catch(err){
+        alert('NO ENTRY TYPE SELECTED');
+        flag = true
+    }
         i++;//update i to check next element in list, need to do it for the list length and throw an error if none is found in time to prevent a infinite loop
     }
     console.log(selected);//test print to ensure proper value was discovered
+
     var userCategory = document.getElementById('Category');//store the element which retrives the identifier value from the user
+    try{    
     var holdCategory = userCategory.value;//store the value inputted for the expense label, identifier
+   if(holdCategory == ""){
+    throw new Error("EMPTY IDENTIFIER PROVIDED")
+   }
+}
+    catch(e){
+        alert(e);
+        selected = 0;
+    }
     var userNumber = document.getElementById('entryAmount');//retrive the element which holds the input for amount
+   try{    
+    var holdNumber = userNumber.value;//store the value inputted for the expense label, identifier
+   if((holdNumber == 0) || (holdNumber < 0 )){
+    throw new Error("Dollar Amount cannot be empty, 0 or Negative")
+   }
+}
+    catch(e){
+        alert(e);
+        selected = 0;
+    }
     var holdNumber = userNumber.value;//access the literal value that was type in by the user
     var newEl = document.createElement('tr');//creating a new table row element to prepare for inserting new data into table
     var formatDate = "" + month + "/" + day;

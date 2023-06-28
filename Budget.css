@@ -73,9 +73,9 @@ caption {
 }
 #multiple_Choice, #input, #trackAmount{
 width:33%;
-height: 300px;
+height: 200px;
 float: left;
-text-align:center;
+text-align:center;       
 }
 #InitAmount{
 
