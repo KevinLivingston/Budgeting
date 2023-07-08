@@ -29,13 +29,13 @@ reCalc.addEventListener('click', function () {
     var miscNum = document.getElementById('Misc_Total').innerText;
     value = parseFloat(fixNum) + parseFloat(expNum) + parseFloat(miscNum);
     console.log(value);
-    document.getElementById('CurrentAmount').innerText = parseFloat(document.getElementById('InitAmount').innerText) -value;
-    try{
-    if(parseFloat(document.getElementById('CurrentAmount').innerText) < 0){
-        throw new Error("Budget exceeded!!")
+    document.getElementById('CurrentAmount').innerText = parseFloat(document.getElementById('InitAmount').innerText) - value;
+    try {
+        if (parseFloat(document.getElementById('CurrentAmount').innerText) < 0) {
+            throw new Error("Budget exceeded!!")
+        }
     }
-}
-    catch(e){
+    catch (e) {
         alert(e);
     }
 }
@@ -53,9 +53,10 @@ function newBudget() {
     }
     else {
         starting_Amount = starting_Amount.toFixed(2);
-        storage.innerText =  starting_Amount;
+        storage.innerText = starting_Amount;
     }
 }
+
 
 function updateTable() {// function used to retrive all the values entered by the user when the submit button is clicked
     var catList = document.getElementsByName("Update");//store the list of type of expenses
@@ -67,39 +68,39 @@ function updateTable() {// function used to retrive all the values entered by th
     console.log(month);
     var day = entryTime.getDay();
     while (flag == false) {//initialize while loop
-        try{
-        if (catList[i].checked == true) {//check to see if the certain expense type is "checked" selected by the user
-            selected = catList[i].value;//store the name of the type of expense
-            flag = true;//update flag to break from loop
+        try {
+            if (catList[i].checked == true) {//check to see if the certain expense type is "checked" selected by the user
+                selected = catList[i].value;//store the name of the type of expense
+                flag = true;//update flag to break from loop
+            }
         }
-    }
-    catch(err){
-        alert('NO ENTRY TYPE SELECTED');
-        flag = true
-    }
+        catch (err) {
+            alert('NO ENTRY TYPE SELECTED');
+            flag = true
+        }
         i++;//update i to check next element in list, need to do it for the list length and throw an error if none is found in time to prevent a infinite loop
     }
     console.log(selected);//test print to ensure proper value was discovered
 
     var userCategory = document.getElementById('Category');//store the element which retrives the identifier value from the user
-    try{    
-    var holdCategory = userCategory.value;//store the value inputted for the expense label, identifier
-   if(holdCategory == ""){
-    throw new Error("EMPTY IDENTIFIER PROVIDED")
-   }
-}
-    catch(e){
+    try {
+        var holdCategory = userCategory.value;//store the value inputted for the expense label, identifier
+        if (holdCategory == "") {
+            throw new Error("EMPTY IDENTIFIER PROVIDED")
+        }
+    }
+    catch (e) {
         alert(e);
         selected = 0;
     }
     var userNumber = document.getElementById('entryAmount');//retrive the element which holds the input for amount
-   try{    
-    var holdNumber = userNumber.value;//store the value inputted for the expense label, identifier
-   if((holdNumber == 0) || (holdNumber < 0 )){
-    throw new Error("Dollar Amount cannot be empty, 0 or Negative")
-   }
-}
-    catch(e){
+    try {
+        var holdNumber = userNumber.value;//store the value inputted for the expense label, identifier
+        if ((holdNumber == 0) || (holdNumber < 0)) {
+            throw new Error("Dollar Amount cannot be empty, 0 or Negative")
+        }
+    }
+    catch (e) {
         alert(e);
         selected = 0;
     }
@@ -127,14 +128,18 @@ function updateTable() {// function used to retrive all the values entered by th
             document.getElementById("Bill_Table").appendChild(newEl);//add element to the proper table
             var el = document.getElementById('Bill_Total');
             el.innerText = updateTotal(1);
+
             break;//no need to continue checking the statement was satisfied
         case "New Expense":
             date.className = 'Expense_Date'
             name.className = 'Expense_Id';
             number.className = 'Expense_Amount';
+            number.innerText = checkExpense(holdCategory, holdNumber);
             document.getElementById("Expense_Table").appendChild(newEl);
             var el = document.getElementById('Expense_Total');
             el.innerText = updateTotal(2);
+
+
             break;
         case "Update your new Purchase":
             date.className = "Misc_Date";
@@ -147,29 +152,91 @@ function updateTable() {// function used to retrive all the values entered by th
         default://no case matched so do nothing and return a response
             console.log("No expense selected");
     }
+    document.getElementById("fullForm").reset();
 }
 function updateTotal(n) {
     var values;
+    var names;
     var runningTotal = 0;
+    flag = false;
     switch (n) {
         case 1:
             values = document.getElementsByClassName('Bill_Amount');
             break;
         case 2:
-            values = document.getElementsByClassName('Expense_Amount');
-            break;
+            names = document.getElementsByClassName('Expense_Id');
+            
+            values = document.getElementsByClassName('Expense_Amount');            break;
         case 3:
             values = document.getElementsByClassName('Misc_Amount');
             break;
         default:
             console.log("No addition type selected");
     }
-    for (var i = 0; i < values.length; i++) {
-        runningTotal += Number(values[i].innerText);
+    if (n == 2) {
+        //function for calculating running total
+        
+        runningTotal = Number(sumExpense(names,values));
+        return runningTotal;
     }
-    console.log(runningTotal);
-    return runningTotal;
-}
+    else {
+        for (var i = 0; i < values.length; i++) {
+
+            runningTotal += Number(values[i].innerText);
+        }
+
+        return runningTotal;
+    }
+} 
+
+    function checkExpense(newName, num) {
+        var nameList = document.getElementsByClassName("Expense_Id");
+        if (nameList.length > 0) {
+            var nameUpper = newName.toUpperCase();
+            var numbers = document.getElementsByClassName("Expense_Amount");
+            var temp;
+            for (var i = nameList.length - 1; i >= 0; i--) {
+                temp = nameList[i].innerText.toUpperCase();
+                if (nameUpper === temp) {
+                    num = numbers[i].innerText - num;
+                    return num;
+
+                }
+            }
+        }
+        return num;
+
+    }
+
+    function sumExpense(names, values){
+        var nameCheck = [];
+        var total = 0;
+        for (var i = 0; i < names.length ; i++){
+            var flag = false;
+            if(nameCheck.length == 0 ){
+                
+                nameCheck[0] = names[0].innerText;
+                total += Number(values[i].innerText);
+
+
+
+            }
+            else{
+               for (var j = 0; j <nameCheck.length; j++){
+                    if((names[i].innerText.toUpperCase()) === (nameCheck[j].toUpperCase())){
+                       j = nameCheck.length;
+                       flag = true;
+                    }
+               }
+               if(flag == false){
+                total+=Number(values[i].innerText);
+               }
+            }
+        }    
+        return total;   
+    }
+    
+
 
 
 

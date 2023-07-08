@@ -18,7 +18,8 @@ body {
 .Expense_Id,
 .Expense_Amount,
 #Expense_Title,
-.Expense_Date {
+.Expense_Date
+ {
 
     border-style: dashed;
     padding: 10PX;
