@@ -1,0 +1,2 @@
+Notes for the Budget Project
+1. Need to be able to accept commas, and other symbols within the initial input
